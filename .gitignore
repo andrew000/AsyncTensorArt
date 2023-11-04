@@ -1,0 +1,8 @@
+/.idea/
+/.env
+/.ruff_cache/
+*.pem
+/.pytest_cache/
+/.mypy_cache/
+/.venv/
+/.dist/
