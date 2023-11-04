@@ -11,7 +11,7 @@ lint:
 	@ruff --config pyproject.toml $(code-dir) $(examples-dir) $(test-dir)
 
 	@echo "Running MyPy..."
-	@mypy --config-file pyproject.toml
+	@mypy --config-file pyproject.toml async_tensorart
 
 .PHONY format:
 format:
@@ -25,4 +25,4 @@ format:
 .PHONY test:
 test:
 	@echo "Running tests..."
-	@pytest -v --config-file=pyproject.toml $(test-dir)
+	@pytest -v --config-file=pyproject.toml

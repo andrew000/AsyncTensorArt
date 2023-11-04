@@ -1,3 +1,9 @@
+# AsyncTensorArt
+
+#### Asynchronous wrapper for the TensorArt API
+
+---
+
 `async_tensorart` is a Python package for asynchronous access to
 the [TensorArt](https://tensor.art/) API.
 
@@ -42,3 +48,4 @@ asyncio.run(main())
 
 ## License
 
+This project is licensed under the terms of the MIT license.

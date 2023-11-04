@@ -1,5 +1,5 @@
 [project]
-name = "async_tensorart"
+name = "async-tensorart"
 dynamic = ["version"]
 description = "Asyncio wrapper for TensorArt API"
 readme = "README.md"
@@ -69,7 +69,6 @@ line-length = 88
 target-version = ["py310", "py311"]
 
 [tool.mypy]
-modules = ["async_tensorart", "tests"]
 exclude = [
     "\\.?venv",
     "\\.idea",
@@ -78,9 +77,6 @@ exclude = [
 
 [tool.pytest.ini_options]
 testpaths = "tests"
-addopts = [
-    "--import-mode=importlib",
-]
 
 [tool.ruff]
 line-length = 88
@@ -119,6 +115,7 @@ exclude = [
     "buck-out",
     "build",
     "dist",
+    ".dist",
     "node_modules",
     "venv",
     ".venv",

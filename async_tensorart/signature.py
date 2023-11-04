@@ -1,5 +1,5 @@
 from base64 import b64encode
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal
 from uuid import uuid4
@@ -21,13 +21,13 @@ class PrivateKey:
 
     def read_key(
         self,
-        passphrase: str | Path | None = None,
+        passphrase: str | bytes | Path | None = None,
     ) -> RSAPrivateKey:
-        if isinstance(passphrase, Path):
-            passphrase = passphrase.read_text(encoding="utf-8")
-
-        elif isinstance(passphrase, str):
+        if isinstance(passphrase, str):
             passphrase = passphrase.encode("utf-8")
+
+        elif isinstance(passphrase, Path):
+            passphrase = passphrase.read_bytes()
 
         return load_pem_private_key(
             data=self.path.read_bytes(),
@@ -62,7 +62,7 @@ def generate_signature(
         timestamp = int(timestamp.timestamp())
 
     elif timestamp is None:
-        timestamp = int(datetime.now(tz=UTC).timestamp())
+        timestamp = int(datetime.now(tz=timezone.utc).timestamp())
 
     if isinstance(body, bytes):
         body = body.decode("utf-8")
