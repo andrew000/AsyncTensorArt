@@ -34,7 +34,7 @@ jobs:
       run: |
         black --config pyproject.toml --check --diff async_tensorart examples tests
         ruff check --config pyproject.toml --output-format=github async_tensorart examples tests
-        mypy --config-file pyproject.toml
+        mypy --config-file pyproject.toml async_tensorart
 
     - name: Test with pytest
       run: |
