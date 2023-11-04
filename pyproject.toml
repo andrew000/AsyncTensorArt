@@ -53,9 +53,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-sources = ["async_tensorart"]
 directory = ".dist"
-exclude = [".github", "examples", "tests"]
+exclude = [".github", "examples", "tests", "Makefile"]
 
 [tool.hatch.envs.default.scripts]
 reformat = "black async_tensorart examples tests"
