@@ -24,11 +24,11 @@ jobs:
       - name: Build dist
         run: python3 -m build
 
-      - name: Verify wheel instalation
+      - name: Verify wheel installation
         run: |
           mkdir -p verify
           cd verify
-          python4 -m venv venv
+          python3 -m venv venv
           venv/bin/pip install ../dist/async_tensorart-*.whl
           venv/bin/python -c "import async_tensorart; print(async_tensorart.__version__)"
 
