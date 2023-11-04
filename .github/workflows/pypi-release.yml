@@ -1,0 +1,59 @@
+name: Publish to PyPI
+
+on: 
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: 📦 Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install build dependencies
+        run: python3 -m pip install --user --upgrade build
+
+      - name: Build dist
+        run: python3 -m build
+
+      - name: Verify wheel installation
+        run: |
+          mkdir -p verify
+          cd verify
+          python3 -m venv venv
+          venv/bin/pip install ../dist/async_tensorart-*.whl
+          venv/bin/python -c "import async_tensorart; print(async_tensorart.__version__)"
+
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-package-distributions
+          path: dist/
+
+  publish:
+    name: 🐍 Publish
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/async-tensorart
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v3
+        with: 
+          name: python-package-distributions
+          path: dist/
+      
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,0 +1,126 @@
+[project]
+name = "async-tensorart"
+dynamic = ["version"]
+description = "Asyncio wrapper for TensorArt API"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+    { name = "andrew000", email = "help.kusbot@gmail.com" }
+]
+keywords = [
+    "api",
+    "framework",
+    "wrapper",
+    "asyncio",
+    "tensorart",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "aiohttp~=3.8.6",
+    "cryptography~=41.0.5",
+    "msgspec~=0.18.4",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest~=7.4",
+    "pytest-asyncio~=0.21.1"
+]
+dev = [
+    "black~=23.10.1",
+    "ruff~=0.1.3",
+    "mypy~=1.6.1",
+]
+speedups = [
+    "aiohttp[speedups]~=3.8.6",
+]
+[project.urls]
+homepage = "https://github.com/andrew000/async_tensorart"
+tracker = "https://github.com/andrew000/async_tensorart/issues"
+source = "https://github.com/andrew000/async_tensorart"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+exclude = [".github", "examples", "tests", "Makefile"]
+
+[tool.hatch.envs.default.scripts]
+reformat = "black async_tensorart examples tests"
+lint = "ruff async_tensorart examples tests"
+
+[tool.hatch.version]
+path = "async_tensorart/__meta__.py"
+
+[tool.black]
+line-length = 88
+target-version = ["py310", "py311"]
+
+[tool.mypy]
+exclude = [
+    "\\.?venv",
+    "\\.idea",
+    "\\.tests?",
+]
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+
+[tool.ruff]
+line-length = 88
+src = ["async_tensorart", "examples", "tests"]
+select = ["ALL"]
+ignore = [
+    "A003",
+    "ANN002", "ANN003", "ANN101", "ANN102", "ANN401",
+    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "D203", "D205", "D212",
+    "DTZ003",
+    "ERA001",
+    "F841",
+    "FA100", "FA102",
+    "FBT001", "FBT002",
+    "PLR0911", "PLR0913",
+    "PLW0120",
+    "RUF",
+    "S311"
+]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    ".dist",
+    "node_modules",
+    "venv",
+    ".venv",
+]
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.per-file-ignores]
+"tests/**/*" = ["PLR2004", "S101", "TID252"]
