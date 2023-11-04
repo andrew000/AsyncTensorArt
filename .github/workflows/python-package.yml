@@ -33,7 +33,7 @@ jobs:
     - name: Lint with Black and Ruff
       run: |
         black --config pyproject.toml --check --diff async_tensorart examples tests
-        ruff --config pyproject.toml --format=github async_tensorart examples tests
+        ruff check --config pyproject.toml --output-format=github async_tensorart examples tests
         mypy --config-file pyproject.toml
 
     - name: Test with pytest
