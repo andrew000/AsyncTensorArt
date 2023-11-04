@@ -53,7 +53,6 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-directory = ".dist"
 exclude = [".github", "examples", "tests", "Makefile"]
 
 [tool.hatch.envs.default.scripts]
