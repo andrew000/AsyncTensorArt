@@ -5,10 +5,13 @@ from uuid import uuid4
 import environs
 from aiohttp import ClientSession
 from async_tensorart import PrivateKey, TensorArt
-from async_tensorart.structs.jobs.post.diffusion import Diffusion, Prompt
-from async_tensorart.structs.jobs.post.enums import Sampler, StageType
+from async_tensorart.structs.jobs.post.diffusion_input import DiffusionInput, Prompt
+from async_tensorart.structs.jobs.post.enums import Sampler, StageTypeT
 from async_tensorart.structs.jobs.post.job import PostJob
-from async_tensorart.structs.jobs.post.stage import InputInitialize, Stage
+from async_tensorart.structs.jobs.post.stage import (
+    CreateJobRequestStage,
+    InputInitializeInput,
+)
 
 env = environs.Env()
 env.read_env()
@@ -27,17 +30,17 @@ async def post_job() -> None:
         ),
     )
 
-    stage_1 = Stage(
-        type=StageType.INPUT_INITIALIZE,
-        input_initialize=InputInitialize(
+    stage_1 = CreateJobRequestStage(
+        type=StageTypeT.INPUT_INITIALIZE,
+        input_initialize=InputInitializeInput(
             seed=0,
             count=1,
         ),
     )
 
-    stage_2 = Stage(
-        type=StageType.DIFFUSION,
-        diffusion=Diffusion(
+    stage_2 = CreateJobRequestStage(
+        type=StageTypeT.DIFFUSION,
+        diffusion=DiffusionInput(
             width=512,
             height=512,
             prompts=[

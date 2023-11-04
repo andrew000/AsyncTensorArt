@@ -23,11 +23,11 @@ class WaitingInfo(Struct, kw_only=True):
 
 class FailedInfo(Struct, kw_only=True):
     reason: str
-    stages: Sequence[StageInfo]
+    stages: Sequence[StageInfo] = field(name="stages", default=[])
 
 
 class RunningInfo(Struct, kw_only=True):
-    stages: Sequence[StageInfo]
+    stages: Sequence[StageInfo] = field(name="stages", default=[])
 
 
 class SuccessInfo(Struct, kw_only=True):

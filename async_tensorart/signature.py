@@ -73,17 +73,8 @@ def generate_signature(
     if nonce is None:
         nonce = uuid4().hex
 
-    signature = private_key(
-        "\n".join(
-            [
-                method,
-                url,
-                str(timestamp),
-                nonce,
-                body,
-            ],
-        ),
-    )
+    signature = private_key(f"{method}\n{url}\n{timestamp}\n{nonce}\n{body}")
+
     return (
         f"TAMS-SHA256-RSA "
         f"app_id={app_id},"

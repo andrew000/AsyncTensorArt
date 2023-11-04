@@ -44,9 +44,9 @@ speedups = [
     "aiohttp[speedups]~=3.8.6",
 ]
 [project.urls]
-homepage = "https://github.com/andrew000/async_tensorart"
-tracker = "https://github.com/andrew000/async_tensorart/issues"
-source = "https://github.com/andrew000/async_tensorart"
+Homepage = "https://github.com/andrew000/AsyncTensorArt"
+Tracker = "https://github.com/andrew000/AsyncTensorArt/issues"
+Source = "https://github.com/andrew000/AsyncTensorArt"
 
 [build-system]
 requires = ["hatchling"]
