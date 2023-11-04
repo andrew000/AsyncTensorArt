@@ -1,10 +1,13 @@
 from msgspec import UNSET, Struct, UnsetType, field
 
-from async_tensorart.structs.jobs.post.diffusion import Diffusion
-from async_tensorart.structs.jobs.post.enums import StageType
+from async_tensorart.structs.jobs.post.diffusion_input import DiffusionInput
+from async_tensorart.structs.jobs.post.enums import StageTypeT
+from async_tensorart.structs.jobs.post.image_to_adetailer import ImageToAdetailerInput
+from async_tensorart.structs.jobs.post.image_to_inpaint import ImageToInpaint
+from async_tensorart.structs.jobs.post.image_to_upscaler import ImageToUpscalerInput
 
 
-class InputInitialize(Struct, kw_only=True):
+class InputInitializeInput(Struct, kw_only=True):
     """Input for the `inputInitialize` stage type."""
 
     seed: int = field(name="seed", default=0)
@@ -15,16 +18,24 @@ class InputInitialize(Struct, kw_only=True):
     """Number of images to generate"""
 
 
-class Stage(Struct, kw_only=True):
-    type: StageType = field(name="type", default=StageType.DEFAULT)
+class CreateJobRequestStage(Struct, kw_only=True):
+    type: StageTypeT = field(name="type", default=StageTypeT.DEFAULT)
     """Stage type."""
-    input_initialize: InputInitialize | UnsetType = field(
+    input_initialize: InputInitializeInput | UnsetType = field(
         name="inputInitialize",
         default=UNSET,
     )
     """*Optional*. Input for the `inputInitialize` stage type."""
-    diffusion: Diffusion | UnsetType = field(name="diffusion", default=UNSET)
-    # image_to_upscaler: ImageToUpscaler | None = field(name="imageToUpscaler",
-    # default=None) image_to_adetailer: ImageToAdetailer | None = field(
-    # name="imageToAdetailer", default=None) image_to_inpaint: ImageToInpaint | None
-    # = field(name="imageToInpaint", default=None)
+    diffusion: DiffusionInput | UnsetType = field(name="diffusion", default=UNSET)
+    image_to_upscaler: ImageToUpscalerInput | UnsetType = field(
+        name="imageToUpscaler",
+        default=UNSET,
+    )
+    image_to_adetailer: ImageToAdetailerInput | UnsetType = field(
+        name="imageToAdetailer",
+        default=UNSET,
+    )
+    image_to_inpaint: ImageToInpaint | UnsetType = field(
+        name="imageToInpaint",
+        default=UNSET,
+    )

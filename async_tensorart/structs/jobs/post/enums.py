@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class StageType(Enum):
+class StageTypeT(Enum):
     DEFAULT = "DEFAULT"
     INPUT_INITIALIZE = "INPUT_INITIALIZE"
     DIFFUSION = "DIFFUSION"
@@ -43,3 +43,33 @@ class Sampler(Enum):
     DPM_PP_2M_KARRAS = "DPM++ 2M Karras"
     DPM_PP_SDE_KARRAS = "DPM++ SDE Karras"
     DPM_PP_2M_SDE_KARRAS = "DPM++ 2M SDE Karras"
+
+
+class ControlnetArgsResizeModeT(Enum):
+    DEFAULT = "DEFAULT"
+    JUST_RESIZE = "JUST_RESIZE"
+    CROP_AND_RESIZE = "CROP_AND_RESIZE"
+    RESIZE_AND_FILL = "RESIZE_AND_FILL"
+
+
+class ArgsControlModeT(Enum):
+    DEFAULT = "DEFAULT"
+    BALANCED = "BALANCED"
+    MY_PROMPT_IS_MORE_IMPORTANT = "MY_PROMPT_IS_MORE_IMPORTANT"
+    CONTROLNET_IS_MORE_IMPORTANT = "CONTROLNET_IS_MORE_IMPORTANT"
+
+
+class ImageToInpaintInputResizeModeT(Enum):
+    DEFAULT = "DEFAULT"
+    JUST_RESIZE = "JUST_RESIZE"
+    CROP_AND_RESIZE = "CROP_AND_RESIZE"
+    RESIZE_AND_FILL = "RESIZE_AND_FILL"
+    JUST_RESIZE_LATENT_UPSCALE = "JUST_RESIZE_LATENT_UPSCALE"
+
+
+class ImageToInpaintInputInpaintFillT(Enum):
+    DEFAULT = "DEFAULT"
+    FILL = "FILL"
+    ORIGINAL = "ORIGINAL"
+    LATENT_NOISE = "LATENT_NOISE"
+    LATENT_NOTHING = "LATENT_NOTHING"

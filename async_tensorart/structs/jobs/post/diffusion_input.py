@@ -2,7 +2,10 @@ from collections.abc import Sequence
 
 from msgspec import UNSET, Struct, UnsetType, field
 
+from async_tensorart.structs.jobs.post.animate_diff import AnimateDiff
+from async_tensorart.structs.jobs.post.control_net import ControlNet
 from async_tensorart.structs.jobs.post.enums import VAE, Sampler
+from async_tensorart.structs.jobs.post.lora import Lora
 
 
 class Prompt(Struct, kw_only=True):
@@ -13,7 +16,7 @@ class Prompt(Struct, kw_only=True):
     weight: float
 
 
-class Diffusion(Struct, kw_only=True):
+class DiffusionInput(Struct, kw_only=True):
     width: int = field(name="width", default=512)
     """Height of the image in pixels. Must be in increments of 64 and pass the
     following validation:
@@ -61,6 +64,6 @@ class Diffusion(Struct, kw_only=True):
         name="etaNoiseSeedDelta",
         default=UNSET,
     )
-    # control_net: ControlNet | None = field(name="controlNet", default=None)
-    # lora: Lora | None = field(name="lora", default=None)
-    # animate_diff: AnimateDiff | None = field(name="animateDiff", default=None)
+    control_net: ControlNet | UnsetType = field(name="controlNet", default=UNSET)
+    lora: Lora | UnsetType = field(name="lora", default=UNSET)
+    animate_diff: AnimateDiff | UnsetType = field(name="animateDiff", default=UNSET)

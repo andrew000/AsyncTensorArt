@@ -9,7 +9,7 @@ from async_tensorart.structs.jobs.get.status import (
 )
 
 
-class Job(Struct, kw_only=True):
+class JobAnswer(Struct, kw_only=True):
     id: str
     status: Status = field(name="status", default=Status.DEFAULT)
     waiting_info: WaitingInfo | UnsetType = field(name="waitingInfo", default=UNSET)
@@ -19,4 +19,6 @@ class Job(Struct, kw_only=True):
 
 
 class JobDict(Struct, kw_only=True):
-    job: Job
+    """Response from GET /jobs/{job_id}."""
+
+    job: JobAnswer

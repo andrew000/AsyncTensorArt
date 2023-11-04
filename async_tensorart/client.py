@@ -23,7 +23,8 @@ from async_tensorart.exceptions import (
     TensorArtUnknownError,
 )
 from async_tensorart.signature import PrivateKey, generate_signature
-from async_tensorart.structs.jobs.get.job import Job, JobDict
+from async_tensorart.structs.jobs.delete.job import DelJob
+from async_tensorart.structs.jobs.get.job import JobAnswer, JobDict
 from async_tensorart.structs.jobs.post.job import PostJob
 from async_tensorart.structs.models.model import Model, ModelDict
 
@@ -134,13 +135,13 @@ class TensorArt(BaseTensorArt):
     async def _process_response(self, response: ClientResponse) -> bytes:
         return await response.read()
 
-    async def get_job(self, job_id: int) -> Job | None:
+    async def get_job(self, job_id: int | str) -> JobAnswer | None:
         result = await self._request("GET", urljoin("jobs/", str(job_id)))
         if result is not None:
             return msgspec.json.decode(result, type=JobDict).job
         return None
 
-    async def post_job(self, job: PostJob) -> Job | None:
+    async def post_job(self, job: PostJob) -> JobAnswer | None:
         result = await self._request(
             "POST",
             "jobs",
@@ -148,6 +149,12 @@ class TensorArt(BaseTensorArt):
         )
         if result is not None:
             return msgspec.json.decode(result, type=JobDict).job
+        return None
+
+    async def del_job(self, job_id: int | str) -> DelJob | None:
+        result = await self._request("DELETE", urljoin("jobs/", str(job_id)))
+        if result is not None:
+            return msgspec.json.decode(result, type=DelJob)
         return None
 
     async def get_model(self, model_id: int) -> Model | None:
