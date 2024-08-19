@@ -1,13 +1,8 @@
-[project]
+[tool.poetry]
 name = "async-tensorart"
-dynamic = ["version"]
 description = "Asyncio wrapper for TensorArt API"
-readme = "README.md"
-requires-python = ">=3.10"
-license = { file = "LICENSE" }
-authors = [
-    { name = "andrew000", email = "help.kusbot@gmail.com" }
-]
+version = "0.2.1"
+authors = ["andrew000"]
 keywords = [
     "api",
     "framework",
@@ -15,59 +10,43 @@ keywords = [
     "asyncio",
     "tensorart",
 ]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Typing :: Typed",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-]
-dependencies = [
-    "aiohttp>=3.8,<4",
-    "cryptography~=41.0",
-    "msgspec~=0.18",
+readme = "README.md"
+license = "MIT"
+packages = [
+    { include = "async_tensorart" },
 ]
 
-[project.optional-dependencies]
-test = [
-    "pytest~=7.4",
-    "pytest-asyncio~=0.21"
-]
-dev = [
-    "black~=23.10",
-    "ruff~=0.1",
-    "mypy~=1.6",
-]
-speedups = [
-    "aiohttp[speedups]>=3.8,<4",
-]
-[project.urls]
-Homepage = "https://github.com/andrew000/AsyncTensorArt"
-Tracker = "https://github.com/andrew000/AsyncTensorArt/issues"
-Source = "https://github.com/andrew000/AsyncTensorArt"
+[tool.poetry.urls]
+homepage = "https://github.com/andrew000/AsyncTensorArt"
+"Bug Tracker" = "https://github.com/andrew000/AsyncTensorArt/issues"
+repository = "https://github.com/andrew000/AsyncTensorArt"
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+cryptography = ">=41.0,<44"
+msgspec = "^0.18"
+aiohttp = ">=3.8,<4"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3"
+pytest-asyncio = "^0.23"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.8"
+ruff = "^0.6"
+isort = "^5.13"
+mypy = "^1.11"
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.hatch.build]
-exclude = [".github", "examples", "tests", "Makefile"]
-
-[tool.hatch.envs.default.scripts]
-reformat = "black async_tensorart examples tests"
-lint = "ruff async_tensorart examples tests"
-
-[tool.hatch.version]
-path = "async_tensorart/__meta__.py"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
 target-version = ["py310", "py311", "py312"]
 
 [tool.mypy]
+packages = ["async_tensorart"]
 exclude = [
     "\\.?venv",
     "\\.idea",
@@ -78,23 +57,9 @@ exclude = [
 testpaths = "tests"
 
 [tool.ruff]
-line-length = 88
 src = ["async_tensorart", "examples", "tests"]
-select = ["ALL"]
-ignore = [
-    "A003",
-    "ANN002", "ANN003", "ANN101", "ANN102", "ANN401",
-    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "D203", "D205", "D212",
-    "DTZ003",
-    "ERA001",
-    "F841",
-    "FA100", "FA102",
-    "FBT001", "FBT002",
-    "PLR0911", "PLR0913",
-    "PLW0120",
-    "RUF",
-    "S311"
-]
+target-version = "py310"
+line-length = 88
 exclude = [
     ".bzr",
     ".direnv",
@@ -120,8 +85,36 @@ exclude = [
     ".venv",
 ]
 
-[tool.ruff.flake8-tidy-imports]
-ban-relative-imports = "all"
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "A003",
+    "ANN002", "ANN003", "ANN101", "ANN102", "ANN401",
+    "COM812",
+    "C901",
+    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "D203", "D205", "D212",
+    "DTZ003",
+    "ERA001",
+    "F841",
+    "FA100", "FA102",
+    "FBT001", "FBT002",
+    "FIX002",
+    "INP001", "ISC001",
+    "PLR0911", "PLR0912", "PLR0913", "PLR0915", "PLR5501",
+    "PLW0120",
+    "RUF",
+    "S101", "S311",
+    "TD002", "TD003"
+]
 
-[tool.ruff.per-file-ignores]
-"tests/**/*" = ["PLR2004", "S101", "TID252"]
+[tool.isort]
+py_version = 312
+src_paths = ["async_tensorart", "examples", "tests"]
+line_length = 88
+multi_line_output = 3
+force_grid_wrap = 0
+include_trailing_comma = true
+split_on_trailing_comma = false
+single_line_exclusions = ["."]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+known_first_party = ["async_tensorart"]

@@ -8,7 +8,7 @@ from urllib.parse import urljoin, urlparse, urlunparse
 import msgspec.json
 from aiohttp import ClientResponse, ClientSession
 
-from async_tensorart.__meta__ import __version__
+from async_tensorart.__version__ import __version__
 from async_tensorart.base import BaseTensorArt
 from async_tensorart.exceptions import (
     TensorArtBadGatewayError,

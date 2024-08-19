@@ -16,8 +16,7 @@ class BaseTensorArt(ABC):
         *,
         json_encoder: Callable[[Any], str | bytes],
         json_decoder: Callable[[str | bytes], Any],
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @abstractmethod
     async def _request(
@@ -26,14 +25,11 @@ class BaseTensorArt(ABC):
         path: str,
         json: dict | None = None,
         **kwargs,
-    ) -> bytes:
-        ...
+    ) -> bytes: ...
 
     @staticmethod
     @abstractmethod
-    def _check_status(status: int) -> tuple[bool, type[Exception] | None]:
-        ...
+    def _check_status(status: int) -> tuple[bool, type[Exception] | None]: ...
 
     @abstractmethod
-    async def _process_response(self, response: Any) -> bytes:
-        ...
+    async def _process_response(self, response: Any) -> bytes: ...

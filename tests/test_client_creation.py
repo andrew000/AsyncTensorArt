@@ -34,7 +34,7 @@ def private_key_fixture() -> Callable[..., MockPrivateKey]:
     return _private_key
 
 
-@pytest.mark.asyncio()
+@pytest.mark.asyncio
 async def test_client_creation(
     aiohttp_client_session: ClientSession,
     private_key: Callable[..., PrivateKey],
